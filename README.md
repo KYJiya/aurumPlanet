@@ -5,7 +5,7 @@ DB
 * DESC themes
 
 | Field      | Type     | Null | Key | Default | Extra |
-| ------------|----------|------|-----|---------|-------|
+|------------|----------|------|-----|---------|-------|
 | createdAt  | datetime | NO   |     | NULL    |       |
 | updatedAt  | datetime | NO   |     | NULL    |       |
 | UserUserId | int      | NO   | PRI | NULL    |       |
@@ -20,37 +20,33 @@ DB
 
 * DESC UserHighlight
 
-|----------------------|----------|------|-----|---------|-------|
 | Field                | Type     | Null | Key | Default | Extra |
 |----------------------|----------|------|-----|---------|-------|
 | createdAt            | datetime | NO   |     | NULL    |       |
 | updatedAt            | datetime | NO   |     | NULL    |       |
 | UserUserId           | int      | NO   | PRI | NULL    |       |
 | HighlightHighlightId | int      | NO   | PRI | NULL    |       |
-|----------------------|----------|------|-----|---------|-------|
 
 * DESC UserPage
-|------------|----------|------|-----|---------|-------|
+
 | Field      | Type     | Null | Key | Default | Extra |
 |------------|----------|------|-----|---------|-------|
 | createdAt  | datetime | NO   |     | NULL    |       |
 | updatedAt  | datetime | NO   |     | NULL    |       |
 | UserUserId | int      | NO   | PRI | NULL    |       |
 | PagePageId | int      | NO   | PRI | NULL    |       |
-|------------|----------|------|-----|---------|-------|
 
 * DESC users
-|------------|-------------|------|-----|---------|----------------|
+
 | Field      | Type        | Null | Key | Default | Extra          |
 |------------|-------------|------|-----|---------|----------------|
 | userId     | int         | NO   | PRI | NULL    | auto_increment |
 | userName   | varchar(20) | NO   |     | NULL    |                |
 | created_at | datetime    | YES  |     | NULL    |                |
 | updated_at | datetime    | YES  |     | NULL    |                |
-|------------|-------------|------|-----|---------|----------------|
 
 * DESC highlights
-|-------------|--------------|------|-----|---------|----------------|
+
 | Field       | Type         | Null | Key | Default | Extra          |
 |-------------|--------------|------|-----|---------|----------------|
 | highlightId | int          | NO   | PRI | NULL    | auto_increment |
@@ -59,6 +55,5 @@ DB
 | updated_at  | datetime     | YES  |     | NULL    |                |
 | themeId     | int          | YES  | MUL | NULL    |                |
 | pageId      | int          | YES  | MUL | NULL    |                |
-|-------------|--------------|------|-----|---------|----------------|
 
 
