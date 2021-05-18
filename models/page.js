@@ -1,17 +1,17 @@
 const { Sequelize } = require("sequelize");
 
-module.exports = class Highlight extends Sequelize.Model {
+module.exports = class Page extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
-            highlightId: {
+            pageId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 primaryKey: true,
                 autoIncrement: true,
             },
-            text: {
+            pageUrl: {
                 type: Sequelize.STRING(100),
-                allowNull: true,
+                allowNull: false,
             },
             created_at: {
                 type: Sequelize.DATE,
@@ -27,16 +27,15 @@ module.exports = class Highlight extends Sequelize.Model {
             sequelize,
             timestamps: false,
             underscored: false,
-            modelName: 'Highlight',
-            tableName: 'highlights',
+            modelName: 'Page',
+            tableName: 'pages',
             paranoid: false,
             charset: 'utf8',
             collate: 'utf8_general_ci',
         });
     }
     static associate(db) {
-        db.Highlight.belongsTo(db.Theme, { foreignKey: 'themeId', targetKey: 'themeId' });
-        db.Highlight.belongsToMany(db.User, { through: 'UserHighlight' });
-        db.Highlight.belongsTo(db.Page, { foreignKey: 'pageId', targetKey: 'pageId' });
+        db.Page.belongsToMany(db.User, { through: 'UserPage' });
+        db.Page.hasMany(db.Highlight, { foreignKey: 'pageId', sourceKey: 'pageId' });
     }
 };

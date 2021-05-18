@@ -1,8 +1,14 @@
-const { Sequelize } = require("sequelize")
+const { Sequelize } = require("sequelize");
 
 module.exports = class Theme extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
+            themeId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+                autoIncrement: true,
+            },
             color1: {
                 type: Sequelize.STRING(7),
                 allowNull: false,
@@ -26,5 +32,7 @@ module.exports = class Theme extends Sequelize.Model {
             collate: 'utf8_general_ci',
         });
     }
-    static associate(db) {}
-}
+    static associate(db) {
+        db.Theme.hasMany(db.Highlight, { foreignKey: 'themeId', sourceKey: 'themeId' });
+    }
+};

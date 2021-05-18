@@ -16,6 +16,16 @@ async function oneAPI (req, res, next) {
     }
 };
 
+async function twoAPI (req, res, next) {
+    try {
+        
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+}
+
 module.exports = {
-    oneAPI: oneAPI
+    oneAPI: oneAPI,
+    twoAPI: twoAPI,
 }
