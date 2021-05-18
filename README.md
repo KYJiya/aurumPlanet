@@ -17,9 +17,8 @@ DB
     * VALUES ( '#f4ff40', '#8affd7', '#ffc477' )
 * highlight table name: highlights
     * CREATE TABLE highlights (  
-        highlightId INT PRIMARY KEY AUTO_INCREMENT,  
         userId VARCHAR(16) NOT NULL,  
-        pageURL VARCHAR(80) NOT NULL,  
+        pageUrl VARCHAR(80) NOT NULL,  
         colorHex VARCHAR(7) NOT NULL,  
         text VARCHAR(100),  
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
