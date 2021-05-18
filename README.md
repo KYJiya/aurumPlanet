@@ -3,7 +3,7 @@ DB
 
 - 테마별 색을 적용하기 위해 각 테마 별로 색 열을 생성한 뒤, INSERT 해 줌.
 * DESC themes  
-| Field      | Type     | Null | Key | Default | Extra |  
+|Field|Type|Null|Key|Default|Extra|  
 |------------|----------|------|-----|---------|-------|  
 | createdAt  | datetime | NO   |     | NULL    |       |  
 | updatedAt  | datetime | NO   |     | NULL    |       |  
