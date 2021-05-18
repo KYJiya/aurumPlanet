@@ -10,12 +10,13 @@ DB
 
 * DESC themes
 
-| Field      | Type     | Null | Key | Default | Extra |
-|------------|----------|------|-----|---------|-------|
-| createdAt  | datetime | NO   |     | NULL    |       |
-| updatedAt  | datetime | NO   |     | NULL    |       |
-| UserUserId | int      | NO   | PRI | NULL    |       |
-| PagePageId | int      | NO   | PRI | NULL    |       |
+| Field   | Type       | Null | Key | Default | Extra          |
+|---------|------------|------|-----|---------|----------------|
+| themeId | int        | NO   | PRI | NULL    | auto_increment |
+| color1  | varchar(7) | NO   |     | NULL    |                |
+| color2  | varchar(7) | NO   |     | NULL    |                |
+| color3  | varchar(7) | NO   |     | NULL    |                |
+
 
     * INSERT INTO themes ( color1, color2, color3 )
     * VALUES ( '#ffff8d', '#a5f2e9', '#ffd5c8' )
