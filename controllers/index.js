@@ -1,16 +1,20 @@
-function oneAPI (req, res) {
-    const userId = req.body.userId;
-    const pageUrl = req.body.pageUrl;
-    const colorHex = req.body.colorHex;
-    const text = req.body.text;
-    res.status(200).json({
-        "highlightId": "ID",
-        "userId": userId,
-        "pageUrl": pageUrl,
-        "colorHex": colorHex,
-        "text": text
-    });
-}
+const Highlight = require('../models/highlight');
+
+async function oneAPI (req, res, next) {
+    try {
+        const highlight = await Highlight.create({
+            userId: req.body.userId,
+            pageUrl: req.body.pageUrl,
+            colorHex: req.body.colorHex,
+            text: req.body.text,
+        });
+        console.log(highlight);
+        res.status(201).json(highlight);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+};
 
 module.exports = {
     oneAPI: oneAPI
