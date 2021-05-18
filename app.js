@@ -10,10 +10,13 @@ var usersRouter = require('./routes/users');
 const { sequelize } = require('./models');
 
 var app = express();
-sequelize
-  .sync()
-  .then(() => console.log('connected database'))
-  .catch(err => console.error('occurred error in database connecting', err))
+sequelize.sync({ force: false })
+  .then(() => {
+    console.log('database connect success');
+  })
+  .catch((err) => {
+    console.error(err);
+  });
   
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
