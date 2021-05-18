@@ -56,6 +56,16 @@ DB
 | updated_at | datetime    | YES  |     | NULL    |                |
 
 
+* DESC pages  
+
+| Field      | Type         | Null | Key | Default | Extra          |
+|------------|--------------|------|-----|---------|----------------|
+| pageId     | int          | NO   | PRI | NULL    | auto_increment |
+| pageUrl    | varchar(100) | NO   |     | NULL    |                |
+| created_at | datetime     | YES  |     | NULL    |                |
+| updated_at | datetime     | YES  |     | NULL    |                |
+
+
 * DESC highlights
 
 | Field       | Type         | Null | Key | Default | Extra          |
