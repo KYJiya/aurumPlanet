@@ -76,10 +76,3 @@ DB
 | updated_at  | datetime     | YES  |     | NULL    |                |
 | themeId     | int          | YES  | MUL | NULL    |                |
 | pageId      | int          | YES  | MUL | NULL    |                |
-
-
-set foreign_key_checks=0;
-truncate table pages;
-SET foreign_key_checks=1;
-commit;
-
