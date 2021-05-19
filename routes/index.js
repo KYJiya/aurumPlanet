@@ -6,5 +6,6 @@ const highlightController = require('../controllers');
 router.post('/oneAPI', highlightController.oneAPI);
 router.post('/twoAPI', highlightController.twoAPI);
 router.post('/threeAPI', highlightController.threeAPI);
+router.post('/fourAPI', highlightController.fourAPI);
 
 module.exports = router;

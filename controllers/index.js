@@ -30,6 +30,13 @@ async function oneAPI (req, res, next) {
         });
         const highlight = await highlights.dataValues.highlightId;
         
+        const user = await User.findOne({
+            where: {
+                userId: req.body.userId,
+            },
+        });
+        await user.addPage(pageId[0]);
+
         res.status(201).json({
             highlightId: highlight,
             userId: req.body.userId,
@@ -113,7 +120,7 @@ async function twoAPI (req, res, next) {
         console.error(err);
         next(err);
     }
-}
+};
 
 async function threeAPI (req, res, next) {
     try {
@@ -151,10 +158,44 @@ async function threeAPI (req, res, next) {
         console.error(err);
         next(err);
     }
-}
+};
+
+async function fourAPI (req, res, next) {
+    try {
+        const pages = await Page.findAll({
+            include: [{
+                model: User,
+            }],
+            order: [
+                ['updated_at', 'DESC'],
+            ]
+        });
+
+        console.log(pages);
+        // const tempJson = JSON.parse(pages);
+        // console.log(tempJson);
+
+        // for (const i = 0; i < pages.length; i++) {    
+        //     const highlights = await Highlight.findAll({
+        //         order: [
+        //             ['updated_at', 'DESC'],
+        //         ],
+        //         where: {
+        //             pageId: page[i],
+        //         }
+        //     });
+        // }
+
+        res.status(201).json("hi");
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+};
 
 module.exports = {
     oneAPI: oneAPI,
     twoAPI: twoAPI,
     threeAPI: threeAPI,
-}
+    fourAPI: fourAPI,
+};
