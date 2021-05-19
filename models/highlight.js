@@ -36,7 +36,7 @@ module.exports = class Highlight extends Sequelize.Model {
     }
     static associate(db) {
         db.Highlight.belongsTo(db.Theme, { foreignKey: 'themeId', targetKey: 'themeId' });
-        db.Highlight.belongsToMany(db.User, { through: 'UserHighlight' });
+        db.Highlight.belongsTo(db.User, { foreignKey: 'userId', targetKey: 'userId' });
         db.Highlight.belongsTo(db.Page, { foreignKey: 'pageId', targetKey: 'pageId' });
     }
 };

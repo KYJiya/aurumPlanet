@@ -36,6 +36,6 @@ module.exports = class User extends Sequelize.Model {
     }
     static associate(db) {
         db.User.belongsToMany(db.Page, { through: 'UserPage' });
-        db.User.belongsToMany(db.Highlight, { through: 'UserHighlight' });
+        db.User.hasMany(db.Highlight, { foreignKey: 'userId', sourceKey: 'userId' });
     }
 };

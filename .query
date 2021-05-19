@@ -5,3 +5,7 @@ truncate table pages;
 SET foreign_key_checks=1;
 commit;
 
+INSERT INTO users ( userName )
+VALUES ( 'kwonYongjun' );
+
+DESC users;
