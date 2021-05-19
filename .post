@@ -1,3 +1,4 @@
-curl -X POST http://127.0.0.1:3000/oneAPI -d "userId=1&pageUrl=www.naver.com&colorHex=#fffff8&text=ok let go";
-
+curl -X POST http://127.0.0.1:3000/oneAPI -d "userId=1&pageUrl=www.naver.com&colorHex=#ffff8d&text=ok let go";
+curl -X POST http://127.0.0.1:3000/twoAPI -d "highlightId=4&userId=2&text=changedgogo"
 curl -X POST http://127.0.0.1:3000/threeAPI -d "userId=1&pageUrl=www.naver.com"
+curl -X POST http://127.0.0.1:3000/fourAPI -d "userId=2"
