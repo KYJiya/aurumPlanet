@@ -1,0 +1,3 @@
+curl -X POST http://127.0.0.1:3000/oneAPI -d "userId=1&pageUrl=www.naver.com&colorHex=#fffff8&text=ok let go";
+
+curl -X POST http://127.0.0.1:3000/threeAPI -d "userId=1&pageUrl=www.naver.com"
