@@ -37,13 +37,7 @@ async function oneAPI (req, res, next) {
         });
         await user.addPage(pageId[0]);
 
-        res.status(201).json({
-            highlightId: highlight.toString(),
-            userId: req.body.userId,
-            pageId: pageId[0].toString(),
-            colorHex: req.body.colorHex,
-            text: req.body.text,
-        });
+        res.status(201).json(highlight);
     } catch (err) {
         console.error(err);
         next(err);
@@ -52,17 +46,23 @@ async function oneAPI (req, res, next) {
 
 async function twoAPI (req, res, next) {
     try {
-        var pageId;
+        // exception
+        if (!req.body.colorHex && !req.body.text) {
+            res.status(202).json("put in colorHex or text");
+            return next;
+        }
 
+        var themes;
+        
         // put in colorHex value
         if (req.body.colorHex) {
-            const themes = await Theme.findAll({
+            themes = await Theme.findAll({
                 attributes: ['themeId', 'color1'],
                 where: {
                     color1: req.body.colorHex,
                 },
             });
-            const theme = await themes.map((theme) => theme.themeId);
+            theme = await themes.map((theme) => theme.themeId);
 
             await Highlight.update({
                 themeId: theme[0],
@@ -73,14 +73,6 @@ async function twoAPI (req, res, next) {
                     userId: req.body.userId,
                 }
             });
-            const highlights = await Highlight.findAll({
-                attributes: ['pageId'],
-                where: {
-                    highlightId: req.body.highlightId,
-                    userId: req.body.userId,
-                }
-            });
-            var pageId = await highlights.map((pageId) => pageId.pageId);
         }
         
         // put in text value
@@ -94,28 +86,16 @@ async function twoAPI (req, res, next) {
                     userId: req.body.userId,
                 }
             });
-            const highlights = await Highlight.findAll({
-                attributes: ['pageId'],
-                where: {
-                    highlightId: req.body.highlightId,
-                    userId: req.body.userId,
-                }
-            });
-            var pageId = await highlights.map((pageId) => pageId.pageId);
         }
 
-        // exception
-        if (req.body.colorHex == null && req.body.text == null) {
-            res.status(202).json("put in colorHex or text");
-        }
+        const highlight = await Highlight.findOne({
+            where: {
+                highlightId: req.body.highlightId,
+                userId: req.body.userId,
+            }
+        })
 
-        res.status(201).json({
-            highlightId: req.body.highlightId,
-            userId: req.body.userId,
-            pageId: pageId[0].toString(),
-            colorHex: req.body.colorHex,
-            test: req.body.text,
-        });
+        res.status(201).json(highlight);
     } catch (err) {
         console.error(err);
         next(err);
@@ -124,11 +104,13 @@ async function twoAPI (req, res, next) {
 
 async function threeAPI (req, res, next) {
     try {
+        // pageId and pageUrl are not then just return
         if (!req.body.pageId && !req.body.pageUrl) {
             res.status(202).json("put in pageId or pageUrl");
             return next;
         }
         
+        // always need pageId but is not then make by pageUrl
         var pageId;
         if (!req.body.pageId) {
             const pages = await Page.findOne({
@@ -144,6 +126,7 @@ async function threeAPI (req, res, next) {
             pageId = await req.body.pageId;
         }
         
+        // always drive
         const highlights = await Highlight.findAll({
             order: [
                 ['updated_at', 'DESC'],
@@ -194,9 +177,11 @@ async function fourAPI (req, res, next) {
 
         // sorted by anti-timeline by 
         tempJson.sort(function(a, b) {
-            return a.highlights.map((map) => map.updated_at) > b.highlights.map((map) => map.updated_at) ? -1 : a.highlights.map((map) => map.updated_at) < b.highlights.map((map) => map.updated_at) ? 1 : 0;
+            return a.highlights.map((map) => map.updated_at) > 
+                   b.highlights.map((map) => map.updated_at) ? -1 : 
+                   a.highlights.map((map) => map.updated_at) < 
+                   b.highlights.map((map) => map.updated_at) ? 1 : 0;
         });
-        console.log(tempJson);
 
         res.status(201).json(tempJson);
     } catch (err) {
@@ -207,9 +192,7 @@ async function fourAPI (req, res, next) {
 
 async function fiveAPI (req, res, next) {
     try {
-        req.body.userId
-        req.body.highlightId
-
+        // destroy highlight in the list of highlights
         const highlights = await Highlight.destroy({
             where: {
                 highlightId: req.body.highlightId,
@@ -224,10 +207,30 @@ async function fiveAPI (req, res, next) {
     }
 }
 
+async function sixAPI (req, res, next) {
+    try {
+        // just updated themeId is related themeTable
+        await Highlight.update({
+            themeId: req.body.themeId,
+            updated_at: Sequelize.fn('NOW'),
+        }, {
+            where: {
+               userId: req.body.userId,
+            }
+        });
+
+        res.status(201).json("theme is changed");
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+}
+
 module.exports = {
     oneAPI: oneAPI,
     twoAPI: twoAPI,
     threeAPI: threeAPI,
     fourAPI: fourAPI,
     fiveAPI: fiveAPI,
+    sixAPI: sixAPI,
 };

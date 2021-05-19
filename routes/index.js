@@ -8,5 +8,6 @@ router.post('/twoAPI', highlightController.twoAPI);
 router.post('/threeAPI', highlightController.threeAPI);
 router.post('/fourAPI', highlightController.fourAPI);
 router.post('/fiveAPI', highlightController.fiveAPI);
+router.post('/sixAPI', highlightController.sixAPI);
 
 module.exports = router;
