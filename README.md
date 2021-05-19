@@ -1,7 +1,7 @@
 DB
 ==
 
-- 테마별 색을 적용하기 위해 각 테마 별로 색 열을 생성한 뒤, INSERT 해 줌.
+- 테마별 색을 적용하기 위해 각 테마 별로 색 열을 생성한 뒤, INSERT 해 .
 - theme & highlight => 1:N
 - User & highlight => 1:N
 - User & Page => N:M
@@ -67,3 +67,13 @@ DB
 | themeId     | int          | YES  | MUL | NULL    |                |
 | userId      | int          | YES  | MUL | NULL    |                |
 | pageId      | int          | YES  | MUL | NULL    |                |
+
+* 주된 API 기능은 /controller/index.js 에 구현하였습니다.
+* DB 구조는 /model 에 구현하였습니다.
+* test용 db는 mysql을 사용하였습니다.
+* POST test는 curl을 사용하였습니다.* 
+* auruemPlanet repository는 제일 처음에 아무것도 모르고 만들어 놨었습니다. 하나의 DB에 모든 정보를 다 넣을 수 있을 것이라 판단하고 DB를 설계(?)하였는데 과제를 이해할 수록 그렇지 않다는 것을 알게 되었고, DB 설계를 다시 하여 express와 sequelize를 사용하려고 다시 마음먹었고, aurumPlanet에 대해 이것 저것 알아보다 스펠링이 잘못된 것을 알고 새로 repository를 만들어 구현하였습니다.
+* 처음에 과제를 보고 제가 할 수 있는 것일까 하는 의문에 긴장이 너무 많이 되어 걱정이었는데, 과제를 마무리한 지금 와서 보니 제가 할 수 있는 만큼의 과제를 주신 것을 보고 꼭 입사하여 많은 것을 배우고, 공헌하고 싶다는 마음이 커졌습니다.
+* API에 대해서 이번 과제만큼 많은 것을 알게 해준 경험은 없었습니다. 좋은 경험을 하게 해주셔서 정말 감사하게 생각하고 있습니다.
+* 꼭 입사하지 않더라도 이번 경험은 서버 개발자로의 전직을 하려하는 저에게 큰 자신감과 포트폴리오를 제공해줬습니다.
+* 감사합니다.
