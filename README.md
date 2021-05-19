@@ -78,3 +78,8 @@ DB
 | pageId      | int          | YES  | MUL | NULL    |                |
 
 
+set foreign_key_checks=0;
+truncate table pages;
+SET foreign_key_checks=1;
+commit;
+
