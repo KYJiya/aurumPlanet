@@ -38,9 +38,9 @@ async function oneAPI (req, res, next) {
         await user.addPage(pageId[0]);
 
         res.status(201).json({
-            highlightId: highlight,
+            highlightId: highlight.toString(),
             userId: req.body.userId,
-            pageId: pageId[0],
+            pageId: pageId[0].toString(),
             colorHex: req.body.colorHex,
             text: req.body.text,
         });
@@ -162,31 +162,43 @@ async function threeAPI (req, res, next) {
 
 async function fourAPI (req, res, next) {
     try {
+        // read page info by userId
         const pages = await Page.findAll({
             include: [{
                 model: User,
+                where: {
+                    userId: req.body.userId,
+                },
             }],
             order: [
                 ['updated_at', 'DESC'],
             ]
         });
+        
+        var tempJson = await pages.map((pages) => pages.dataValues);
 
-        console.log(pages);
-        // const tempJson = JSON.parse(pages);
-        // console.log(tempJson);
+        // read highlight info by pageId
+        for (var i = 0; i < tempJson.length; i++) {    
+            var highlights = await Highlight.findAll({
+                order: [
+                    ['updated_at', 'DESC'],
+                ],
+                where: {
+                    pageId: tempJson[i].pageId,
+                }
+            });
+            var tempHighlights = await highlights.map((highlights) => highlights.dataValues);
 
-        // for (const i = 0; i < pages.length; i++) {    
-        //     const highlights = await Highlight.findAll({
-        //         order: [
-        //             ['updated_at', 'DESC'],
-        //         ],
-        //         where: {
-        //             pageId: page[i],
-        //         }
-        //     });
-        // }
+            tempJson[i].highlights = tempHighlights;
+        }
 
-        res.status(201).json("hi");
+        // sorted by anti-timeline by 
+        tempJson.sort(function(a, b) {
+            return a.highlights.map((map) => map.updated_at) > b.highlights.map((map) => map.updated_at) ? -1 : a.highlights.map((map) => map.updated_at) < b.highlights.map((map) => map.updated_at) ? 1 : 0;
+        });
+        console.log(tempJson);
+
+        res.status(201).json(tempJson);
     } catch (err) {
         console.error(err);
         next(err);
