@@ -46,6 +46,8 @@ async function oneAPI (req, res, next) {
 async function twoAPI (req, res, next) {
     try {
         var pageId;
+
+        // put in colorHex value
         if (req.body.colorHex) {
             const themes = await Theme.findAll({
                 attributes: ['themeId', 'color1'],
@@ -74,6 +76,7 @@ async function twoAPI (req, res, next) {
             var pageId = await highlights.map((pageId) => pageId.pageId);
         }
         
+        // put in text value
         if (req.body.text) {
             await Highlight.update({
                 text: req.body.text,
@@ -94,6 +97,7 @@ async function twoAPI (req, res, next) {
             var pageId = await highlights.map((pageId) => pageId.pageId);
         }
 
+        // exception
         if (req.body.colorHex == null && req.body.text == null) {
             res.status(202).json("put in colorHex or text");
         }
