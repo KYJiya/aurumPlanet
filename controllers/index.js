@@ -47,7 +47,6 @@ async function twoAPI (req, res, next) {
     try {
         var pageId;
         if (req.body.colorHex) {
-            console.log(req.body.colorHex);
             const themes = await Theme.findAll({
                 attributes: ['themeId', 'color1'],
                 where: {
