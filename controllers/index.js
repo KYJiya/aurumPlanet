@@ -115,7 +115,46 @@ async function twoAPI (req, res, next) {
     }
 }
 
+async function threeAPI (req, res, next) {
+    try {
+        if (!req.body.pageId && !req.body.pageUrl) {
+            res.status(202).json("put in pageId or pageUrl");
+            return next;
+        }
+        
+        var pageId;
+        if (!req.body.pageId) {
+            const pages = await Page.findOne({
+                attributes: ['pageId'],
+                where: {
+                    pageUrl: req.body.pageUrl,
+                }
+            });
+            pageId = await pages.dataValues.pageId;
+        }
+
+        if (req.body.pageId) {
+            pageId = await req.body.pageId;
+        }
+        
+        const highlights = await Highlight.findAll({
+            order: [
+                ['updated_at', 'DESC'],
+            ],
+            where: {
+                pageId: pageId,
+            }
+        });    
+        
+        res.status(201).json(highlights);
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+}
+
 module.exports = {
     oneAPI: oneAPI,
     twoAPI: twoAPI,
+    threeAPI: threeAPI,
 }
