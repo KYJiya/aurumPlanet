@@ -205,9 +205,29 @@ async function fourAPI (req, res, next) {
     }
 };
 
+async function fiveAPI (req, res, next) {
+    try {
+        req.body.userId
+        req.body.highlightId
+
+        const highlights = await Highlight.destroy({
+            where: {
+                highlightId: req.body.highlightId,
+                userId: req.body.userId,
+            }
+        })
+
+        res.status(201).json("delete ok");
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+}
+
 module.exports = {
     oneAPI: oneAPI,
     twoAPI: twoAPI,
     threeAPI: threeAPI,
     fourAPI: fourAPI,
+    fiveAPI: fiveAPI,
 };
