@@ -1,7 +1,7 @@
 DB
 ==
 
-- 테마별 색을 적용하기 위해 각 테마 별로 색 열을 생성한 뒤, INSERT 해 .
+- 테마별 색을 적용하기 위해 각 테마 별로 색 열을 생성한 뒤, INSERT 해 준다.
 - theme & highlight => 1:N
 - User & highlight => 1:N
 - User & Page => N:M
